@@ -1,7 +1,7 @@
 import java.util.*;
 public class Main{
     public static void main(String[] args) {
-        List<Movie> movies = new ArrayList<>();
+        Set<Movie> movies = new LinkedHashSet<>();
         movies.add(new Movie("Cars","Animation"));
         movies.add(new Movie("Toy Story", "Animation"));
         movies.add(new Movie("The Incredibles", "Action"));

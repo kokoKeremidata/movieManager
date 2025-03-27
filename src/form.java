@@ -19,9 +19,9 @@ public class form extends JFrame{
     private JScrollPane scrollpane;
     private JButton sortG;
 
-    private List<Movie> movies = new ArrayList<>();;
+    private Set<Movie> movies = new LinkedHashSet<>();
 
-    public form(List movies) {
+    public form(Set movies) {
         this.movies = movies;
 
         comboBox1.addItem("Action");comboBox1.addItem("Animation");comboBox1.addItem("Comedy");comboBox1.addItem("Horror");comboBox1.addItem("Romance");comboBox1.addItem("Thriller");
@@ -66,18 +66,21 @@ public class form extends JFrame{
         sortT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Collections.sort(movies,Comparator.comparing(Movie::getTitle,String.CASE_INSENSITIVE_ORDER));
+                List<Movie> sorted = new ArrayList<>(movies);
+                Collections.sort(sorted,Comparator.comparing(Movie::getTitle,String.CASE_INSENSITIVE_ORDER));
+                movies.clear();
+                movies.addAll(sorted);
                 populateTable();
-                // I really wanted to do this with a treeset for some reason but then realized it won't work for the genre button
-                // since it doesn't allow duplicates so it was just wasting lines here :(, but it does work with a treeset by clearing
-                // the movies list and adding the treeset back
             }
         });
 
         sortG.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Collections.sort(movies,Comparator.comparing(Movie::getGenre));
+                List<Movie> sorted = new ArrayList<>(movies);
+                Collections.sort(sorted,Comparator.comparing(Movie::getGenre));
+                movies.clear();
+                movies.addAll(sorted);
                 populateTable();
             }
         });
